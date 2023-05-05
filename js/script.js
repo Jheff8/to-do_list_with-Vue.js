@@ -1,5 +1,9 @@
 if(!localStorage.getItem('tasks')){
-    localStorage.setItem('tasks', [])
+    const defaultTask = {"title": "title"}
+    localStorage.setItem('tasks', JSON.stringify([defaultTask]))
+    let tasksList = JSON.parse(localStorage.getItem('tasks'))
+    tasksList.pop()
+    localStorage.setItem('tasks', JSON.stringify(tasksList))
 }
 const app = Vue.createApp({
     data(){
