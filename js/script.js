@@ -178,8 +178,7 @@ const app = Vue.createApp({
             this.toggleTaskCreationVisibility()
         },
         taskInformations(index) {
-            const storage = JSON.parse(localStorage.getItem('tasks'))
-            this.currentTask = storage[index]
+            this.currentTask = this.listOfAllTasks[index]
             this.taskIndex = index
             if(this.currentTask.categoryText){
                 this.outputCategoryName = this.currentTask.categoryText
@@ -187,7 +186,6 @@ const app = Vue.createApp({
                 this.outputCategoryName = 'Create New'
             }
             this.isInformationVisible = true
-            
         },
         verifyChanges() {
             const title = this.readOnlyInput
@@ -199,9 +197,8 @@ const app = Vue.createApp({
                 this.borderDangerTitle = true
             } else{
                 const obj = {"title": title, "coment": coment, "category": category, "categoryText": categoryText, "color": color}
-                let storage = JSON.parse(localStorage.getItem('tasks'))
-                storage[this.taskIndex] = obj
-                localStorage.setItem('tasks', JSON.stringify(storage))
+                this.listOfAllTasks[this.taskIndex] = obj
+                localStorage.setItem('tasks', JSON.stringify(this.listOfAllTasks))
                 this.loadAllTasks()
                 this.toggleInformationVisibility()  
                 this.borderDangerTitle = false
